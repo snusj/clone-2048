@@ -33,31 +33,27 @@ export const isFull = (board: Array<Array<number>>) => {
     return !board.some(row => row.includes(0));
 }
 
-const compress = (board: Array<Array<number>>) => {
-    const newBoard = emptyBoard();
-    for(let i = 0; i < 4; i++) {
-        let k = 0;
-        for(let j = 0; j < 4; j++) {
-            if (board[i] !== undefined && board[i]?.[j] !== 0 && newBoard[i] !== undefined && newBoard[i]?.[k] !== undefined) { // board[i] != null && board[i][j] !== 0
-                newBoard[i][k] = board[i]?.[j];
-                k++;
-            }
-        }
-    }
-    return newBoard;
+const compress = (board: Array<Array<number>>): Array<Array<number>> => {
+    return board.map(row => {
+        const newRow: number[] = row.filter(tile => tile !== 0);
+        const zeros: number[] = Array<number>(4 - newRow.length).fill(0);
+        return [...newRow, ...zeros];
+    });
 }
 
 const merge = (board: Array<Array<number>>) => {
-    //if(board.length === 4)
-    for(let i = 0; i < 4; i++) {
-        for(let j = 0; j < 3; j++) {
-            if (board[i] != null && board[i]?.[j] !== undefined && board[i]?.[j] !== 0 && board[i]?.[j] === board[i]?.[j+1]) {
-                board[i][j] *= 2;
-                board[i][j+1] = 0;
+    return board.map(row => {
+        const newRow: number[] = row;
+        newRow.forEach((tile, i) => {
+            if(i < 3){
+                if (tile === newRow[i + 1]) {
+                    newRow[i] = tile * 2;
+                    newRow[i + 1] = 0;
+                }
             }
-        }
-    }
-    return board;
+        });
+        return newRow;
+    });
 }
 
 export const moveLeft = (board: Array<Array<number>>) => {
