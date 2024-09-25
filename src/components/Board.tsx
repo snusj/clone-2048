@@ -34,7 +34,7 @@ export const randomTile = (board: Array<Array<number>>) => {
   return board;
 };
 
-export const isFull = (board: Array<Array<number>>) => {
+const isFull = (board: Array<Array<number>>) => {
   return !board.some((row) => row.includes(0));
 };
 
