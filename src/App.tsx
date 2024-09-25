@@ -19,10 +19,10 @@ export const App = () => {
     }
   }, [score, bestScore]);
 
-  return <div className="app">
-    <Score score={score} bestScore={bestScore} message={message} />
-    <Game setScore={setScore} setMessage={setMessage}/>
-  </div>;
+  return (
+    <div className="app">
+      <Score score={score} bestScore={bestScore} message={message} />
+      <Game setScore={setScore} setMessage={setMessage} />
+    </div>
+  );
 };
-
-

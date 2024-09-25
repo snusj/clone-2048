@@ -1,6 +1,14 @@
 //import React from 'react';
 
-export const Score = ({ score, bestScore, message }: { score: number; bestScore: number; message: string }) => {
+export const Score = ({
+  score,
+  bestScore,
+  message,
+}: {
+  score: number;
+  bestScore: number;
+  message: string;
+}) => {
   return (
     <div className="score">
       <div className="score-title">{'2048'}</div>
@@ -17,4 +25,4 @@ export const Score = ({ score, bestScore, message }: { score: number; bestScore:
       </div>
     </div>
   );
-}
+};
