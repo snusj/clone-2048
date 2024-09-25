@@ -23,7 +23,7 @@ export const randomTile = (board: Array<Array<number>>) => {
     if (tile != null) {
         const [i, j] = tile;
         if (board[i] != null && board[i][j] !== undefined) {
-            board[i][j] = Math.random() < 0.9 ? 2 : 4;
+            board[i][j] = (Math.random() < 0.9) ? 2 : 4;
         }
     }
     return board;
