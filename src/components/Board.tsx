@@ -1,6 +1,6 @@
 //import Tile from './Tile';
 
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from 'react';
 
 export const emptyBoard = () => {
   return [
@@ -48,7 +48,10 @@ const compress = (board: Array<Array<number>>): Array<Array<number>> => {
   });
 };
 
-const merge = (board: Array<Array<number>>, setScore: Dispatch<SetStateAction<number>>) => {
+const merge = (
+  board: Array<Array<number>>,
+  setScore: Dispatch<SetStateAction<number>>,
+) => {
   return board.map((row) => {
     const newRow: number[] = row;
     newRow.forEach((tile, i) => {
@@ -65,26 +68,29 @@ const merge = (board: Array<Array<number>>, setScore: Dispatch<SetStateAction<nu
 };
 
 const checkMerge = (board: Array<Array<number>>) => {
-    return board.map((row) => {
-      const newRow: number[] = row;
-      newRow.forEach((tile, i) => {
-        if (i < 3) {
-          if (tile === newRow[i + 1]) {
-            newRow[i] = tile * 2;
-            newRow[i + 1] = 0;
-          }
+  return board.map((row) => {
+    const newRow: number[] = row;
+    newRow.forEach((tile, i) => {
+      if (i < 3) {
+        if (tile === newRow[i + 1]) {
+          newRow[i] = tile * 2;
+          newRow[i + 1] = 0;
         }
-      });
-      return newRow;
+      }
     });
-  };
+    return newRow;
+  });
+};
 
-export const moveLeft = (board: Array<Array<number>>, setScore: Dispatch<SetStateAction<number>>) => {
+export const moveLeft = (
+  board: Array<Array<number>>,
+  setScore: Dispatch<SetStateAction<number>>,
+) => {
   return compress(merge(compress(board), setScore));
 };
 
-export const checkLeft = (board: Array<Array<number>>) => {
-    return compress(checkMerge(compress(board)));
+const checkLeft = (board: Array<Array<number>>) => {
+  return compress(checkMerge(compress(board)));
 };
 
 const rotateLeft = (board: Array<Array<number>>) => {
@@ -105,29 +111,40 @@ const rotateRight = (board: Array<Array<number>>) => {
   return rotateLeft(rotateLeft(rotateLeft(board)));
 };
 
-export const moveUp = (board: Array<Array<number>>, setScore: Dispatch<SetStateAction<number>>) => {
+export const moveUp = (
+  board: Array<Array<number>>,
+  setScore: Dispatch<SetStateAction<number>>,
+) => {
   return rotateRight(moveLeft(rotateLeft(board), setScore));
 };
 
-export const moveDown = (board: Array<Array<number>>, setScore: Dispatch<SetStateAction<number>>) => {
+export const moveDown = (
+  board: Array<Array<number>>,
+  setScore: Dispatch<SetStateAction<number>>,
+) => {
   return rotateLeft(moveLeft(rotateRight(board), setScore));
 };
 
-export const moveRight = (board: Array<Array<number>>, setScore: Dispatch<SetStateAction<number>>) => {
-  return rotateLeft(rotateLeft(moveLeft(rotateLeft(rotateLeft(board)), setScore)));
+export const moveRight = (
+  board: Array<Array<number>>,
+  setScore: Dispatch<SetStateAction<number>>,
+) => {
+  return rotateLeft(
+    rotateLeft(moveLeft(rotateLeft(rotateLeft(board)), setScore)),
+  );
 };
 
-export const checkUp = (board: Array<Array<number>>) => {
+const checkUp = (board: Array<Array<number>>) => {
   return rotateRight(checkLeft(rotateLeft(board)));
-}
+};
 
-export const checkDown = (board: Array<Array<number>>) => {
-    return rotateLeft(checkLeft(rotateRight(board)));
-}
+const checkDown = (board: Array<Array<number>>) => {
+  return rotateLeft(checkLeft(rotateRight(board)));
+};
 
-export const checkRight = (board: Array<Array<number>>) => {
-    return rotateLeft(rotateLeft(checkLeft(rotateLeft(rotateLeft(board)))));
-}
+const checkRight = (board: Array<Array<number>>) => {
+  return rotateLeft(rotateLeft(checkLeft(rotateLeft(rotateLeft(board)))));
+};
 
 export const checkWin = (board: Array<Array<number>>) => {
   // For convenience, 128 was used instead of 2048
