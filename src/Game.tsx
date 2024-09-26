@@ -28,36 +28,36 @@ const Game = ({
         alert('You win!');
         setMessage('You win!');
         setFinished(true);
-        setScore(1);
+        //setScore(v => v + 1);
       } else if (isOver(board)) {
         alert('Game over!');
         setMessage('Game over!');
         setFinished(true);
-        setScore(-1);
+        //setScore(v => v - 1);
       }
     }
   };
 
   const left = () => {
-    const newBoard = moveLeft(board);
+    const newBoard = moveLeft(board, setScore);
     updateBoard(randomTile(newBoard));
     checkEnd();
   };
 
   const right = () => {
-    const newBoard = moveRight(board);
+    const newBoard = moveRight(board, setScore);
     updateBoard(randomTile(newBoard));
     checkEnd();
   };
 
   const up = () => {
-    const newBoard = moveUp(board);
+    const newBoard = moveUp(board, setScore);
     updateBoard(randomTile(newBoard));
     checkEnd();
   };
 
   const down = () => {
-    const newBoard = moveDown(board);
+    const newBoard = moveDown(board, setScore);
     updateBoard(randomTile(newBoard));
     checkEnd();
   };
