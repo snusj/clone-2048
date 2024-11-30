@@ -3,13 +3,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 
 export const emptyBoard = () => {
-  return [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-  ];
-  //return Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0));
+  return Array.from({ length: 4 }, () => Array<number>(4).fill(0));
 };
 
 export const randomTile = (board: Array<Array<number>>) => {
@@ -98,13 +92,6 @@ const rotateLeft = (board: Array<Array<number>>) => {
     row.map((_, j) => (board[j] != null ? board[j][3 - i] : 0)),
   );
   return newBoard as Array<Array<number>>;
-  // const newBoard = emptyBoard();
-  // for(let i = 0; i < 4; i++) {
-  //     for(let j = 0; j < 4; j++) {
-  //         newBoard[i][j] = board[j][3-i];
-  //     }
-  // }
-  // return newBoard;
 };
 
 const rotateRight = (board: Array<Array<number>>) => {
@@ -167,7 +154,4 @@ export const isOver = (board: Array<Array<number>>) => {
       hasDiff(board, move(board)),
     )
   );
-  //return isFull(board);
 };
-
-//export const move = (board: Array<Array<number | null>>, direction: string) => {}
