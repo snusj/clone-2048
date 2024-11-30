@@ -28,59 +28,43 @@ const Game = ({
         alert('You win!');
         setMessage('You win!');
         setFinished(true);
-        //setScore(v => v + 1);
       } else if (isOver(board)) {
         alert('Game over!');
         setMessage('Game over!');
         setFinished(true);
-        //setScore(v => v - 1);
       }
     }
   };
 
-  const left = () => {
-    const newBoard = moveLeft(board, setScore);
-    updateBoard(randomTile(newBoard));
-    checkEnd();
-  };
-
-  const right = () => {
-    const newBoard = moveRight(board, setScore);
-    updateBoard(randomTile(newBoard));
-    checkEnd();
-  };
-
-  const up = () => {
-    const newBoard = moveUp(board, setScore);
-    updateBoard(randomTile(newBoard));
-    checkEnd();
-  };
-
-  const down = () => {
-    const newBoard = moveDown(board, setScore);
+  const move = (
+    moveFunction: (
+      board: Array<Array<number>>,
+      setScore: Dispatch<SetStateAction<number>>,
+    ) => number[][],
+  ) => {
+    const newBoard = moveFunction(board, setScore);
     updateBoard(randomTile(newBoard));
     checkEnd();
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    //if(!isOver(board)){
     switch (e.key) {
       case 'ArrowLeft':
-        left();
+        move(moveLeft);
         break;
       case 'ArrowRight':
-        right();
+        move(moveRight);
         break;
       case 'ArrowUp':
-        up();
+        move(moveUp);
         break;
       case 'ArrowDown':
-        down();
+        move(moveDown);
         break;
       default:
     }
-    //}
   };
+
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
     return () => {
